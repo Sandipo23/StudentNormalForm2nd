@@ -45,7 +45,7 @@
             lblLastName.Name = "lblLastName";
             lblLastName.Size = new Size(95, 25);
             lblLastName.TabIndex = 3;
-            lblLastName.Text = "last Name:";
+            lblLastName.Text = "Last Name:";
             // 
             // textBox2
             // 
