@@ -38,12 +38,20 @@
             lblFullName = new Label();
             txtFee = new TextBox();
             lblFee = new Label();
+            lblFirstNameError = new Label();
+            lblLastNameError = new Label();
+            lblGender = new Label();
+            rbMale = new RadioButton();
+            rbFemale = new RadioButton();
+            lblCourse = new Label();
+            cmbCourse = new ComboBox();
+            lblCourseError = new Label();
             SuspendLayout();
             // 
             // lblLastName
             // 
             lblLastName.AutoSize = true;
-            lblLastName.Location = new Point(44, 83);
+            lblLastName.Location = new Point(40, 80);
             lblLastName.Name = "lblLastName";
             lblLastName.Size = new Size(99, 25);
             lblLastName.TabIndex = 3;
@@ -76,7 +84,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(133, 266);
+            btnSave.Location = new Point(126, 370);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -86,7 +94,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(262, 266);
+            btnCancel.Location = new Point(255, 370);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
@@ -96,7 +104,7 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(170, 147);
+            textBox3.Location = new Point(170, 128);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
             textBox3.Size = new Size(150, 31);
@@ -105,7 +113,7 @@
             // lblFullName
             // 
             lblFullName.AutoSize = true;
-            lblFullName.Location = new Point(44, 147);
+            lblFullName.Location = new Point(44, 128);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(95, 25);
             lblFullName.TabIndex = 3;
@@ -113,7 +121,7 @@
             // 
             // txtFee
             // 
-            txtFee.Location = new Point(170, 197);
+            txtFee.Location = new Point(170, 178);
             txtFee.Name = "txtFee";
             txtFee.ReadOnly = true;
             txtFee.Size = new Size(150, 31);
@@ -123,25 +131,113 @@
             // lblFee
             // 
             lblFee.AutoSize = true;
-            lblFee.Location = new Point(44, 197);
+            lblFee.Location = new Point(44, 184);
             lblFee.Name = "lblFee";
             lblFee.Size = new Size(43, 25);
             lblFee.TabIndex = 3;
             lblFee.Text = "Fee:";
+            lblFee.Click += lblFee_Click;
+            // 
+            // lblFirstNameError
+            // 
+            lblFirstNameError.AutoSize = true;
+            lblFirstNameError.Location = new Point(349, 26);
+            lblFirstNameError.Name = "lblFirstNameError";
+            lblFirstNameError.Size = new Size(189, 25);
+            lblFirstNameError.TabIndex = 5;
+            lblFirstNameError.Text = "First Name is Required";
+            // 
+            // lblLastNameError
+            // 
+            lblLastNameError.AutoSize = true;
+            lblLastNameError.Location = new Point(349, 83);
+            lblLastNameError.Name = "lblLastNameError";
+            lblLastNameError.Size = new Size(187, 25);
+            lblLastNameError.TabIndex = 3;
+            lblLastNameError.Text = "Last Name is Required";
+            lblLastNameError.Click += lblLastNameError_Click;
+            // 
+            // lblGender
+            // 
+            lblGender.AutoSize = true;
+            lblGender.Location = new Point(44, 252);
+            lblGender.Name = "lblGender";
+            lblGender.Size = new Size(73, 25);
+            lblGender.TabIndex = 3;
+            lblGender.Text = "Gender:";
+            lblGender.Click += lblFee_Click;
+            // 
+            // rbMale
+            // 
+            rbMale.AutoSize = true;
+            rbMale.Location = new Point(170, 248);
+            rbMale.Name = "rbMale";
+            rbMale.Size = new Size(75, 29);
+            rbMale.TabIndex = 6;
+            rbMale.TabStop = true;
+            rbMale.Text = "Male";
+            rbMale.UseVisualStyleBackColor = true;
+            // 
+            // rbFemale
+            // 
+            rbFemale.AutoSize = true;
+            rbFemale.Location = new Point(264, 248);
+            rbFemale.Name = "rbFemale";
+            rbFemale.Size = new Size(93, 29);
+            rbFemale.TabIndex = 7;
+            rbFemale.TabStop = true;
+            rbFemale.Text = "Female";
+            rbFemale.UseVisualStyleBackColor = true;
+            rbFemale.CheckedChanged += rbFemale_CheckedChanged;
+            // 
+            // lblCourse
+            // 
+            lblCourse.AutoSize = true;
+            lblCourse.Location = new Point(44, 309);
+            lblCourse.Name = "lblCourse";
+            lblCourse.Size = new Size(71, 25);
+            lblCourse.TabIndex = 3;
+            lblCourse.Text = "Course:";
+            lblCourse.Click += lblFee_Click;
+            // 
+            // cmbCourse
+            // 
+            cmbCourse.FormattingEnabled = true;
+            cmbCourse.Location = new Point(170, 309);
+            cmbCourse.Name = "cmbCourse";
+            cmbCourse.Size = new Size(150, 33);
+            cmbCourse.TabIndex = 8;
+            // 
+            // lblCourseError
+            // 
+            lblCourseError.AutoSize = true;
+            lblCourseError.Location = new Point(349, 312);
+            lblCourseError.Name = "lblCourseError";
+            lblCourseError.Size = new Size(159, 25);
+            lblCourseError.TabIndex = 9;
+            lblCourseError.Text = "Course is Required";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(777, 662);
+            Controls.Add(lblCourseError);
+            Controls.Add(cmbCourse);
+            Controls.Add(rbFemale);
+            Controls.Add(rbMale);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
+            Controls.Add(lblFirstNameError);
             Controls.Add(lblFirstName);
             Controls.Add(textBox1);
+            Controls.Add(lblCourse);
+            Controls.Add(lblGender);
             Controls.Add(lblFee);
             Controls.Add(txtFee);
             Controls.Add(lblFullName);
             Controls.Add(textBox3);
+            Controls.Add(lblLastNameError);
             Controls.Add(lblLastName);
             Controls.Add(textBox2);
             Name = "Form1";
@@ -151,7 +247,7 @@
         }
 
         #endregion
-      //  private Label label2;
+        //  private Label label2;
         private Label lblLastName;
         private TextBox textBox2;
         private Label lblFirstName;
@@ -163,5 +259,13 @@
         private Label lblFullName;
         private TextBox txtFee;
         private Label lblFee;
+        private Label lblFirstNameError;
+        private Label lblLastNameError;
+        private Label lblGender;
+        private RadioButton rbMale;
+        private RadioButton rbFemale;
+        private Label lblCourse;
+        private ComboBox cmbCourse;
+        private Label lblCourseError;
     }
 }
