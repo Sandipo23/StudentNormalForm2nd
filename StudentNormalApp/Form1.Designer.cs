@@ -36,6 +36,8 @@
             btnCancel = new Button();
             textBox3 = new TextBox();
             lblFullName = new Label();
+            txtFee = new TextBox();
+            lblFee = new Label();
             SuspendLayout();
             // 
             // lblLastName
@@ -43,7 +45,7 @@
             lblLastName.AutoSize = true;
             lblLastName.Location = new Point(44, 83);
             lblLastName.Name = "lblLastName";
-            lblLastName.Size = new Size(95, 25);
+            lblLastName.Size = new Size(99, 25);
             lblLastName.TabIndex = 3;
             lblLastName.Text = "Last Name:";
             // 
@@ -74,7 +76,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(136, 193);
+            btnSave.Location = new Point(133, 266);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -84,16 +86,17 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(265, 193);
+            btnCancel.Location = new Point(262, 266);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(170, 137);
+            textBox3.Location = new Point(170, 147);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
             textBox3.Size = new Size(150, 31);
@@ -102,11 +105,29 @@
             // lblFullName
             // 
             lblFullName.AutoSize = true;
-            lblFullName.Location = new Point(44, 137);
+            lblFullName.Location = new Point(44, 147);
             lblFullName.Name = "lblFullName";
             lblFullName.Size = new Size(95, 25);
             lblFullName.TabIndex = 3;
             lblFullName.Text = "Full Name:";
+            // 
+            // txtFee
+            // 
+            txtFee.Location = new Point(170, 197);
+            txtFee.Name = "txtFee";
+            txtFee.ReadOnly = true;
+            txtFee.Size = new Size(150, 31);
+            txtFee.TabIndex = 2;
+            txtFee.TextChanged += txtFee_TextChanged;
+            // 
+            // lblFee
+            // 
+            lblFee.AutoSize = true;
+            lblFee.Location = new Point(44, 197);
+            lblFee.Name = "lblFee";
+            lblFee.Size = new Size(43, 25);
+            lblFee.TabIndex = 3;
+            lblFee.Text = "Fee:";
             // 
             // Form1
             // 
@@ -117,6 +138,8 @@
             Controls.Add(btnSave);
             Controls.Add(lblFirstName);
             Controls.Add(textBox1);
+            Controls.Add(lblFee);
+            Controls.Add(txtFee);
             Controls.Add(lblFullName);
             Controls.Add(textBox3);
             Controls.Add(lblLastName);
@@ -128,15 +151,17 @@
         }
 
         #endregion
-        private Label label2;
+      //  private Label label2;
         private Label lblLastName;
         private TextBox textBox2;
         private Label lblFirstName;
-        private Label lblName;
+        //private Label lblName;
         private TextBox textBox1;
         private Button btnSave;
         private Button btnCancel;
         private TextBox textBox3;
         private Label lblFullName;
+        private TextBox txtFee;
+        private Label lblFee;
     }
 }
