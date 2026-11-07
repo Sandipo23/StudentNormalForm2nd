@@ -1,6 +1,6 @@
 ﻿namespace StudentNormalApp
 {
-    partial class Form1
+    partial class formStudent
     {
         /// <summary>
         ///  Required designer variable.
@@ -46,6 +46,14 @@
             lblCourse = new Label();
             cmbCourse = new ComboBox();
             lblCourseError = new Label();
+            chkAgree = new CheckBox();
+            lblAgreeError = new Label();
+            pbStudent = new PictureBox();
+            btnUpload = new Button();
+            btnRemove = new Button();
+            txtImage = new TextBox();
+            openFileDialog = new OpenFileDialog();
+            ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
             SuspendLayout();
             // 
             // lblLastName
@@ -84,7 +92,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(126, 370);
+            btnSave.Location = new Point(122, 468);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -94,7 +102,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(255, 370);
+            btnCancel.Location = new Point(251, 468);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
@@ -207,6 +215,7 @@
             cmbCourse.Name = "cmbCourse";
             cmbCourse.Size = new Size(150, 33);
             cmbCourse.TabIndex = 8;
+            cmbCourse.SelectedIndexChanged += cmbCourse_SelectedIndexChanged;
             // 
             // lblCourseError
             // 
@@ -216,12 +225,79 @@
             lblCourseError.Size = new Size(159, 25);
             lblCourseError.TabIndex = 9;
             lblCourseError.Text = "Course is Required";
+            lblCourseError.Visible = false;
+            lblCourseError.Click += lblCourseError_Click;
             // 
-            // Form1
+            // chkAgree
+            // 
+            chkAgree.AutoSize = true;
+            chkAgree.Location = new Point(170, 382);
+            chkAgree.Name = "chkAgree";
+            chkAgree.Size = new Size(295, 29);
+            chkAgree.TabIndex = 11;
+            chkAgree.Text = "I agree the terms and conditions";
+            chkAgree.UseVisualStyleBackColor = true;
+            chkAgree.CheckedChanged += chkAgree_CheckedChanged;
+            // 
+            // lblAgreeError
+            // 
+            lblAgreeError.AutoSize = true;
+            lblAgreeError.Location = new Point(204, 426);
+            lblAgreeError.Name = "lblAgreeError";
+            lblAgreeError.Size = new Size(304, 25);
+            lblAgreeError.TabIndex = 9;
+            lblAgreeError.Text = "Must agree the terms and conditions";
+            // 
+            // pbStudent
+            // 
+            pbStudent.Location = new Point(795, 33);
+            pbStudent.Name = "pbStudent";
+            pbStudent.Size = new Size(205, 176);
+            pbStudent.TabIndex = 12;
+            pbStudent.TabStop = false;
+            // 
+            // btnUpload
+            // 
+            btnUpload.Location = new Point(795, 268);
+            btnUpload.Name = "btnUpload";
+            btnUpload.Size = new Size(90, 34);
+            btnUpload.TabIndex = 13;
+            btnUpload.Text = "Upload";
+            btnUpload.UseVisualStyleBackColor = true;
+            btnUpload.Click += btnUpload_Click;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Location = new Point(891, 268);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(99, 34);
+            btnRemove.TabIndex = 14;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click_1;
+            // 
+            // txtImage
+            // 
+            txtImage.Location = new Point(795, 231);
+            txtImage.Name = "txtImage";
+            txtImage.Size = new Size(150, 31);
+            txtImage.TabIndex = 15;
+            // 
+            // openFileDialog
+            // 
+            openFileDialog.FileName = "openFileDialog";
+            // 
+            // formStudent
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(777, 662);
+            ClientSize = new Size(1043, 662);
+            Controls.Add(txtImage);
+            Controls.Add(btnRemove);
+            Controls.Add(btnUpload);
+            Controls.Add(pbStudent);
+            Controls.Add(chkAgree);
+            Controls.Add(lblAgreeError);
             Controls.Add(lblCourseError);
             Controls.Add(cmbCourse);
             Controls.Add(rbFemale);
@@ -240,8 +316,9 @@
             Controls.Add(lblLastNameError);
             Controls.Add(lblLastName);
             Controls.Add(textBox2);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "formStudent";
+            Text = "Student Registration Form";
+            ((System.ComponentModel.ISupportInitialize)pbStudent).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -267,5 +344,12 @@
         private Label lblCourse;
         private ComboBox cmbCourse;
         private Label lblCourseError;
+        private CheckBox chkAgree;
+        private Label lblAgreeError;
+        private PictureBox pbStudent;
+        private Button btnUpload;
+        private Button btnRemove;
+        private TextBox txtImage;
+        private OpenFileDialog openFileDialog;
     }
 }

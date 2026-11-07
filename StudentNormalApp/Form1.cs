@@ -1,11 +1,21 @@
 namespace StudentNormalApp
 {
-    public partial class Form1 : Form
+    public partial class formStudent : Form
     {
-        public Form1()
+        public formStudent()
         {
             InitializeComponent();
             InitFormComponent();
+            LoadCourse();
+        }
+
+        private void LoadCourse()
+        {
+            var studentService = new StudentService();
+            string[] courses = studentService.GetAllCourses();
+            cmbCourse.Items.AddRange(courses);
+
+            cmbCourse.SelectedIndex = 0;
         }
 
         private void InitFormComponent()
@@ -16,7 +26,16 @@ namespace StudentNormalApp
             lblLastNameError.ForeColor = Color.Red;
             lblFirstNameError.Visible = false;
             lblLastNameError.Visible = false;
+            lblCourseError.Visible = false;
             rbMale.Checked = true;
+            lblCourseError.ForeColor = Color.Red;
+            lblCourseError.Visible = false;
+            lblAgreeError.ForeColor = Color.Red;
+            lblAgreeError.Visible = false;
+            pbStudent.BorderStyle = BorderStyle.Fixed3D;
+            pbStudent.SizeMode = PictureBoxSizeMode.StretchImage;
+            //pbStudent.Load(@"D:\Broadway\ferrari.jpg");
+            txtImage.Enabled = false;
 
         }
 
@@ -58,8 +77,9 @@ namespace StudentNormalApp
             string firstName = textBox1.Text;
             string lastName = textBox2.Text;
             bool gender = rbMale.Checked;
-            string course = cmbCourse.Text;
-
+            string course = cmbCourse.Text;  // Get the selected course from the ComboBox
+            bool agree = chkAgree.Checked;
+            string ImagePath = txtImage.Text.Trim();
 
 
 
@@ -89,8 +109,16 @@ namespace StudentNormalApp
             {
                 lblCourseError.Visible = false;
             }
+            if (!agree)
+            {
+                lblAgreeError.Visible = true;
+            }
+            else
+            {
+                lblAgreeError.Visible = false;
+            }
 
-            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0)
+            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree) // Check if all required fields are filled
             {
                 MessageBox.Show("Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ResetControls();
@@ -128,6 +156,46 @@ namespace StudentNormalApp
 
         private void rbFemale_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void cmbCourse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCourse.SelectedIndex > 0)
+            {
+                lblCourseError.Visible = false;
+            }
+        }
+
+        private void chkAgree_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAgree.Checked)
+            {
+                lblAgreeError.Visible = false;
+            }
+        }
+
+        private void lblCourseError_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Filter = "Images |*.jpg;*.jpeg;*.png;";
+            if (openFileDialog.ShowDialog() == DialogResult.OK) // Check if the user selected a file
+            {
+                pbStudent.Load(openFileDialog.FileName); // Load the selected image into the PictureBox
+                txtImage.Text = openFileDialog.SafeFileName;  // Set the file name in the TextBox
+            }
+        }
+
+      
+
+        private void btnRemove_Click_1(object sender, EventArgs e)
+        {
+            txtImage.Clear();
+            pbStudent.Image = null;
 
         }
     }
