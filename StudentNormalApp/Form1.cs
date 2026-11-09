@@ -20,7 +20,7 @@ namespace StudentNormalApp
 
         private void InitFormComponent()
         {
-            txtFee.Text = "20,500";
+            //txtFee.Text = "20,500";
             txtFee.Enabled = false;
             lblFirstNameError.ForeColor = Color.Red;
             lblLastNameError.ForeColor = Color.Red;
@@ -36,6 +36,7 @@ namespace StudentNormalApp
             pbStudent.SizeMode = PictureBoxSizeMode.StretchImage;
             //pbStudent.Load(@"D:\Broadway\ferrari.jpg");
             txtImage.Enabled = false;
+            txtFee.Text = StudentService._fee;
 
         }
 
@@ -120,6 +121,18 @@ namespace StudentNormalApp
 
             if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree) // Check if all required fields are filled
             {
+                StudentService studentService = new StudentService(); // Create an instance of StudentService
+                Student student = new Student     // Create a new Student object, where the properties are set based on the form inputs.
+                {
+                    FirstName = firstName, // Assign the first name to the FirstName property
+                    LastName = lastName,
+                    Gender = gender,
+                    Agree = agree,
+                    Course = course,
+                    Profile = ""
+                };
+
+                studentService.Save(student);
                 MessageBox.Show("Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ResetControls();
             }
