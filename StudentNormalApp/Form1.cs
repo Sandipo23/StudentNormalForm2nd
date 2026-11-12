@@ -2,17 +2,46 @@ namespace StudentNormalApp
 {
     public partial class formStudent : Form
     {
+        private readonly StudentService _studentService;
+        private string _uploadedFile;
         public formStudent()
         {
+            _studentService = new StudentService();
             InitializeComponent();
             InitFormComponent();
             LoadCourse();
+            LoadFormData();
+        }
+
+        private void LoadFormData()
+        {
+            var student = _studentService.Get(); // this line is used to get the data of student from the database or file.
+                                                 // The Get() method of StudentService class is called which returns the Student object.
+            if (student != null)
+            {
+                textBox1.Text = student.FirstName;
+                textBox2.Text = student.LastName;
+                if (student.Gender)
+                {
+                    rbMale.Checked = true;
+                }
+                else
+                {
+                    rbFemale.Checked = true;
+                }
+                cmbCourse.Text = student.Course;
+                chkAgree.Checked = student.Agree;
+                if (!String.IsNullOrEmpty(student.Profile) && File.Exists(student.Profile))
+                {
+                    txtImage.Text = Path.GetFileName(student.Profile);
+                    pbStudent.Load(Path.Combine(_studentService._folderLocation, student.Profile));
+                }
+            }
         }
 
         private void LoadCourse()
         {
-            var studentService = new StudentService();
-            string[] courses = studentService.GetAllCourses();
+            var courses = _studentService.GetAllCourses();
             cmbCourse.Items.AddRange(courses);
 
             cmbCourse.SelectedIndex = 0;
@@ -118,6 +147,7 @@ namespace StudentNormalApp
             {
                 lblAgreeError.Visible = false;
             }
+            string imagePath = Path.Combine(_studentService._folderLocation, txtImage.Text); // this line is used to get the path of the image which is present in the folder location.
 
             if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree) // Check if all required fields are filled
             {
@@ -129,10 +159,14 @@ namespace StudentNormalApp
                     Gender = gender,
                     Agree = agree,
                     Course = course,
-                    Profile = ""
+                    Profile = imagePath
                 };
 
-                studentService.Save(student);
+                _studentService.Save(student);
+                if (!String.IsNullOrEmpty(_uploadedFile))
+                {
+                    _studentService.SaveImage(_uploadedFile, imagePath);
+                }
                 MessageBox.Show("Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ResetControls();
             }
@@ -153,6 +187,11 @@ namespace StudentNormalApp
             textBox1.Clear();
             textBox2.Clear();
             textBox1.Focus();
+            rbMale.Checked = true;
+            cmbCourse.SelectedIndex = 0;
+            chkAgree.Checked = false;
+            RemoveImage();
+            _uploadedFile = "";
             lblFirstNameError.Visible = false;
             lblLastNameError.Visible = false;
         }
@@ -198,18 +237,24 @@ namespace StudentNormalApp
             openFileDialog.Filter = "Images |*.jpg;*.jpeg;*.png;";
             if (openFileDialog.ShowDialog() == DialogResult.OK) // Check if the user selected a file
             {
-                pbStudent.Load(openFileDialog.FileName); // Load the selected image into the PictureBox
+                // pbStudent.Load(openFileDialog.FileName); // Load the selected image into the PictureBox
+                _uploadedFile = openFileDialog.FileName;
+                pbStudent.Load(_uploadedFile);
                 txtImage.Text = openFileDialog.SafeFileName;  // Set the file name in the TextBox
             }
         }
 
-      
+
 
         private void btnRemove_Click_1(object sender, EventArgs e)
         {
-            txtImage.Clear();
-            pbStudent.Image = null;
+            RemoveImage();
 
+        }
+        private void RemoveImage()
+        {
+            pbStudent.Image = null;
+            txtImage.Clear();
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System;
 using System.Collections.Generic;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace StudentNormalApp
 {
@@ -16,12 +17,18 @@ namespace StudentNormalApp
         public const string _fee = "3,50,000";
 
         // Readonly
-        public readonly string _folderLocation = @"D:\Asp.Net\Project\First_Desktop_Student_Form\files";
+        public readonly string _folderLocation;
+        private readonly string path;
 
         //public StudentService()
         //{
         //    _folderLocation = "";
         //}
+        public StudentService()
+        {
+            _folderLocation = ConfigurationManager.AppSettings["FolderLocation"];
+            path = Path.Combine(_folderLocation, "student.json");
+        }
         public string[] GetAllCourses()
         {
              string[] courses = { "Select Course", "BCA", "BBA", "B.Tech", "MCA", "MBA" };
@@ -33,8 +40,25 @@ namespace StudentNormalApp
                                            // this method will save the data of student into database or file.
         {
             string json = JsonConvert.SerializeObject(student);
-            string path = $@"{_folderLocation}\student.json";
+            string path = Path.Combine(_folderLocation, "student.json");
             File.WriteAllText(path, json);
+        }
+
+        public void SaveImage(string source, string destination)
+        {
+            File.Copy(source, destination);
+        }
+        public Student Get()
+        {
+            string path = Path.Combine(_folderLocation, "student.json"); // this line is used to get the path of the student.json file which is present in the folder location.
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path);
+                var student = JsonConvert.DeserializeObject<Student>(json); // this line is used to deserialize the json data into Student object.
+                return student;
+            }
+
+            return null;
         }
     }
 }
