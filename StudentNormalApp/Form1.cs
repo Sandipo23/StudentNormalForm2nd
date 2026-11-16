@@ -3,41 +3,77 @@ namespace StudentNormalApp
     public partial class formStudent : Form
     {
         private readonly StudentService _studentService;
-        private string _uploadedFile;
+        private string _uploadedFile; // this variable is used to store the path of the uploaded image file.
         public formStudent()
         {
             _studentService = new StudentService();
             InitializeComponent();
             InitFormComponent();
             LoadCourse();
-            LoadFormData();
+            
+            LoadStudentsGrid();
+        }
+        private void LoadStudentsGrid()
+        {
+            dgvStudents.AutoGenerateColumns = false;
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.FirstName),
+                HeaderText = "First Name",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.FirstName)
+            });
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.LastName),
+                HeaderText = "Last Name",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.LastName)
+            });
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.Gender),
+                HeaderText = "Gender",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.Gender)
+            });
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.Agree),
+                HeaderText = "Agree",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.Agree)
+            });
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.Course),
+                HeaderText = "Course",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.Course)
+            });
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
+                Name = nameof(StudentRead.Profile),
+                HeaderText = "Profile",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.Profile)
+            });
+            LoadStudents();
         }
 
-        private void LoadFormData()
+        private void LoadStudents() // this method is used to load all the data of student from database or file and
+                                    // display it in the DataGridView.
         {
-            var student = _studentService.Get(); // this line is used to get the data of student from the database or file.
-                                                 // The Get() method of StudentService class is called which returns the Student object.
-            if (student != null)
+            var students = _studentService.GetAll();
+            if (students.Count > 0)
             {
-                textBox1.Text = student.FirstName;
-                textBox2.Text = student.LastName;
-                if (student.Gender)
-                {
-                    rbMale.Checked = true;
-                }
-                else
-                {
-                    rbFemale.Checked = true;
-                }
-                cmbCourse.Text = student.Course;
-                chkAgree.Checked = student.Agree;
-                if (!String.IsNullOrEmpty(student.Profile) && File.Exists(student.Profile))
-                {
-                    txtImage.Text = Path.GetFileName(student.Profile);
-                    pbStudent.Load(Path.Combine(_studentService._folderLocation, student.Profile));
-                }
+                dgvStudents.DataSource = students;
             }
         }
+
+
+
+        
 
         private void LoadCourse()
         {
@@ -147,7 +183,9 @@ namespace StudentNormalApp
             {
                 lblAgreeError.Visible = false;
             }
-            string imagePath = Path.Combine(_studentService._folderLocation, txtImage.Text); // this line is used to get the path of the image which is present in the folder location.
+            string imagePath = String.IsNullOrEmpty(txtImage.Text) ? null : Path.Combine(_studentService._folderLocation, txtImage.Text); // this is ternary operator which is used to check if the
+                                                                                                                                          // txtImage.Text is null or empty then it will assign null to
+                                                                                                                                          // imagePath otherwise it will assign the path of the image to imagePath.
 
             if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree) // Check if all required fields are filled
             {
@@ -163,10 +201,11 @@ namespace StudentNormalApp
                 };
 
                 _studentService.Save(student);
-                if (!String.IsNullOrEmpty(_uploadedFile))
+                if (!String.IsNullOrEmpty(_uploadedFile) && !String.IsNullOrEmpty(txtImage.Text)) // Check if an image file was uploaded and the image path is not empty
                 {
-                    _studentService.SaveImage(_uploadedFile, imagePath);
+                    _studentService.SaveImage(_uploadedFile, imagePath); // Save the uploaded image to the specified destination path
                 }
+                LoadStudents(); // Refresh the DataGridView to display the newly added student
                 MessageBox.Show("Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ResetControls();
             }
@@ -255,6 +294,11 @@ namespace StudentNormalApp
         {
             pbStudent.Image = null;
             txtImage.Clear();
+        }
+
+        private void txtImage_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

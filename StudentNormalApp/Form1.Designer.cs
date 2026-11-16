@@ -53,7 +53,9 @@
             btnRemove = new Button();
             txtImage = new TextBox();
             openFileDialog = new OpenFileDialog();
+            dgvStudents = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
             // 
             // lblLastName
@@ -92,7 +94,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(122, 468);
+            btnSave.Location = new Point(125, 446);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -102,7 +104,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(251, 468);
+            btnCancel.Location = new Point(254, 446);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
@@ -231,7 +233,7 @@
             // chkAgree
             // 
             chkAgree.AutoSize = true;
-            chkAgree.Location = new Point(170, 382);
+            chkAgree.Location = new Point(170, 378);
             chkAgree.Name = "chkAgree";
             chkAgree.Size = new Size(295, 29);
             chkAgree.TabIndex = 11;
@@ -242,7 +244,7 @@
             // lblAgreeError
             // 
             lblAgreeError.AutoSize = true;
-            lblAgreeError.Location = new Point(204, 426);
+            lblAgreeError.Location = new Point(471, 382);
             lblAgreeError.Name = "lblAgreeError";
             lblAgreeError.Size = new Size(304, 25);
             lblAgreeError.TabIndex = 9;
@@ -282,16 +284,31 @@
             txtImage.Name = "txtImage";
             txtImage.Size = new Size(150, 31);
             txtImage.TabIndex = 15;
+            txtImage.TextChanged += txtImage_TextChanged;
             // 
             // openFileDialog
             // 
             openFileDialog.FileName = "openFileDialog";
             // 
+            // dgvStudents
+            // 
+            dgvStudents.AllowUserToAddRows = false;
+            dgvStudents.AllowUserToDeleteRows = false;
+            dgvStudents.AllowUserToOrderColumns = true;
+            dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStudents.Location = new Point(27, 528);
+            dgvStudents.Name = "dgvStudents";
+            dgvStudents.ReadOnly = true;
+            dgvStudents.RowHeadersWidth = 62;
+            dgvStudents.Size = new Size(1020, 297);
+            dgvStudents.TabIndex = 16;
+            // 
             // formStudent
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1043, 662);
+            ClientSize = new Size(1133, 870);
+            Controls.Add(dgvStudents);
             Controls.Add(txtImage);
             Controls.Add(btnRemove);
             Controls.Add(btnUpload);
@@ -319,6 +336,7 @@
             Name = "formStudent";
             Text = "Student Registration Form";
             ((System.ComponentModel.ISupportInitialize)pbStudent).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStudents).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -351,5 +369,6 @@
         private Button btnRemove;
         private TextBox txtImage;
         private OpenFileDialog openFileDialog;
+        private DataGridView dgvStudents;
     }
 }

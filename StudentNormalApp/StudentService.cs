@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using StudentNormalApp;
 using System;
 using System;
 using System.Collections.Generic;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace StudentNormalApp
 {
@@ -35,30 +37,67 @@ namespace StudentNormalApp
              return courses;
         }
 
-        public void Save(Student student)  // this method is used to save the data of student into database or file.
-                                           // the Student object is passed as parameter to this method which contains the data of student.
-                                           // this method will save the data of student into database or file.
+        public void Save(Student student) // this method is used to save the data of student into database or file.
         {
-            string json = JsonConvert.SerializeObject(student);
+            //string json = JsonConvert.SerializeObject(student); // this line is used to serialize the Student object into json format.
+            var existingStudents = GetExistingStudents();
+            existingStudents.Add(student);
+            string json = JsonConvert.SerializeObject(existingStudents);
             string path = Path.Combine(_folderLocation, "student.json");
             File.WriteAllText(path, json);
         }
 
         public void SaveImage(string source, string destination)
         {
-            File.Copy(source, destination);
+            File.Copy(source, destination, true); 
         }
-        public Student Get()
+       
+        
+        
+        
+        public List<StudentRead> GetAll()  // this method is used to get all the data of student from database or file.
         {
+            var studentList = GetExistingStudents();
+            if (studentList.Count > 0) // this line is used to check if the list of Student object is not empty.
+            {
+                var students = ConvertToStudentRead(studentList); // this line is used to convert
+                                                                  // the list of Student object into list of StudentRead object.
+                return students;
+            }
+
+            return new List<StudentRead>();
+        }
+
+        private List<Student> GetExistingStudents() // this method is used to get all the existing data of student from database or file.
+        { 
             string path = Path.Combine(_folderLocation, "student.json"); // this line is used to get the path of the student.json file which is present in the folder location.
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
-                var student = JsonConvert.DeserializeObject<Student>(json); // this line is used to deserialize the json data into Student object.
-                return student;
+        var students = JsonConvert.DeserializeObject<List<Student>>(json);
+                return students;
             }
 
-            return null;
+            return new List<Student>();  // this line is used to return an empty list of Student object if the student.json file is not present in the folder location.
+        }
+
+private List<StudentRead> ConvertToStudentRead(List<Student> students) // this method is used to convert the list of Student object into list of StudentRead object.
+        {
+    var studentReads = new List<StudentRead>(); // this line is used to create a new list of StudentRead object. 
+            foreach (Student student in students)
+    {
+        studentReads.Add(new StudentRead
+        {
+            FirstName = student.FirstName,
+            LastName = student.LastName,
+            Gender = student.Gender ? "Male" : "Female",
+            Agree = student.Agree ? "Yes" : "No",
+            Course = student.Course,
+            Profile = student.Profile
+        });
+    }
+
+    return studentReads; // studentReads is of datatype List<StudentRead>
         }
     }
 }
