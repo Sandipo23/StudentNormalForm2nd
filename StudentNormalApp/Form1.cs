@@ -10,7 +10,7 @@ namespace StudentNormalApp
             InitializeComponent();
             InitFormComponent();
             LoadCourse();
-            
+
             LoadStudentsGrid();
         }
         private void LoadStudentsGrid()
@@ -53,6 +53,14 @@ namespace StudentNormalApp
             });
             dgvStudents.Columns.Add(new DataGridViewColumn
             {
+                Name = nameof(StudentRead.DOB),
+                HeaderText = "DOB",
+                CellTemplate = new DataGridViewTextBoxCell(),
+                DataPropertyName = nameof(StudentRead.DOB)
+            });
+
+            dgvStudents.Columns.Add(new DataGridViewColumn
+            {
                 Name = nameof(StudentRead.Profile),
                 HeaderText = "Profile",
                 CellTemplate = new DataGridViewTextBoxCell(),
@@ -73,7 +81,7 @@ namespace StudentNormalApp
 
 
 
-        
+
 
         private void LoadCourse()
         {
@@ -101,8 +109,10 @@ namespace StudentNormalApp
             pbStudent.SizeMode = PictureBoxSizeMode.StretchImage;
             //pbStudent.Load(@"D:\Broadway\ferrari.jpg");
             txtImage.Enabled = false;
-            txtFee.Text = StudentService._fee;
-
+            txtFee.Text = Constants.Fee;
+            dtpDOB.Format = DateTimePickerFormat.Custom;
+            dtpDOB.CustomFormat = " ";// Set the custom format to an empty string to hide the date initially
+            lblDOBError.ForeColor = Color.Red;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -146,6 +156,7 @@ namespace StudentNormalApp
             string course = cmbCourse.Text;  // Get the selected course from the ComboBox
             bool agree = chkAgree.Checked;
             string ImagePath = txtImage.Text.Trim();
+            string dob = dtpDOB.Text.Trim();
 
 
 
@@ -183,11 +194,19 @@ namespace StudentNormalApp
             {
                 lblAgreeError.Visible = false;
             }
+            if (String.IsNullOrEmpty(dob))
+            {
+                lblDOBError.Visible = true;
+            }
+            else
+            {
+                lblDOBError.Visible = false;
+            }
             string imagePath = String.IsNullOrEmpty(txtImage.Text) ? null : Path.Combine(_studentService._folderLocation, txtImage.Text); // this is ternary operator which is used to check if the
                                                                                                                                           // txtImage.Text is null or empty then it will assign null to
                                                                                                                                           // imagePath otherwise it will assign the path of the image to imagePath.
 
-            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree) // Check if all required fields are filled
+            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree && !String.IsNullOrEmpty(dob)) // Check if all required fields are filled
             {
                 StudentService studentService = new StudentService(); // Create an instance of StudentService
                 Student student = new Student     // Create a new Student object, where the properties are set based on the form inputs.
@@ -197,6 +216,7 @@ namespace StudentNormalApp
                     Gender = gender,
                     Agree = agree,
                     Course = course,
+                    DOB = dtpDOB.Value,
                     Profile = imagePath
                 };
 
@@ -233,6 +253,7 @@ namespace StudentNormalApp
             _uploadedFile = "";
             lblFirstNameError.Visible = false;
             lblLastNameError.Visible = false;
+            dtpDOB.CustomFormat = " ";
         }
 
         private void lblLastNameError_Click(object sender, EventArgs e)
@@ -299,6 +320,12 @@ namespace StudentNormalApp
         private void txtImage_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dtpDOB_ValueChanged(object sender, EventArgs e)
+        {
+            dtpDOB.CustomFormat = Constants.Format;
+            lblDOBError.Visible = false;
         }
     }
 }

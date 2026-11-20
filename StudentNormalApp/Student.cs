@@ -11,6 +11,7 @@ namespace StudentNormalApp
             public bool Gender { get; set; }
             public bool Agree { get; set; }
             public string Course { get; set; }
+            public DateTime DOB { get; set; }
             public string Profile { get; set; }
         
     }

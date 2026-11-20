@@ -54,6 +54,9 @@
             txtImage = new TextBox();
             openFileDialog = new OpenFileDialog();
             dgvStudents = new DataGridView();
+            dtpDOB = new DateTimePicker();
+            lblDob = new Label();
+            lblDOBError = new Label();
             ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
@@ -94,7 +97,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(125, 446);
+            btnSave.Location = new Point(116, 616);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -104,7 +107,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(254, 446);
+            btnCancel.Location = new Point(245, 616);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
@@ -203,7 +206,7 @@
             // lblCourse
             // 
             lblCourse.AutoSize = true;
-            lblCourse.Location = new Point(44, 309);
+            lblCourse.Location = new Point(40, 317);
             lblCourse.Name = "lblCourse";
             lblCourse.Size = new Size(71, 25);
             lblCourse.TabIndex = 3;
@@ -233,7 +236,7 @@
             // chkAgree
             // 
             chkAgree.AutoSize = true;
-            chkAgree.Location = new Point(170, 378);
+            chkAgree.Location = new Point(161, 548);
             chkAgree.Name = "chkAgree";
             chkAgree.Size = new Size(295, 29);
             chkAgree.TabIndex = 11;
@@ -244,7 +247,7 @@
             // lblAgreeError
             // 
             lblAgreeError.AutoSize = true;
-            lblAgreeError.Location = new Point(471, 382);
+            lblAgreeError.Location = new Point(489, 552);
             lblAgreeError.Name = "lblAgreeError";
             lblAgreeError.Size = new Size(304, 25);
             lblAgreeError.TabIndex = 9;
@@ -296,18 +299,48 @@
             dgvStudents.AllowUserToDeleteRows = false;
             dgvStudents.AllowUserToOrderColumns = true;
             dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStudents.Location = new Point(27, 528);
+            dgvStudents.Location = new Point(44, 688);
             dgvStudents.Name = "dgvStudents";
             dgvStudents.ReadOnly = true;
             dgvStudents.RowHeadersWidth = 62;
             dgvStudents.Size = new Size(1020, 297);
             dgvStudents.TabIndex = 16;
             // 
+            // dtpDOB
+            // 
+            dtpDOB.Location = new Point(150, 398);
+            dtpDOB.Name = "dtpDOB";
+            dtpDOB.Size = new Size(261, 31);
+            dtpDOB.TabIndex = 17;
+            dtpDOB.ValueChanged += dtpDOB_ValueChanged;
+            // 
+            // lblDob
+            // 
+            lblDob.AutoSize = true;
+            lblDob.Location = new Point(40, 404);
+            lblDob.Name = "lblDob";
+            lblDob.Size = new Size(53, 25);
+            lblDob.TabIndex = 3;
+            lblDob.Text = "DOB:";
+            lblDob.Click += lblFee_Click;
+            // 
+            // lblDOBError
+            // 
+            lblDOBError.AutoSize = true;
+            lblDOBError.Location = new Point(435, 398);
+            lblDOBError.Name = "lblDOBError";
+            lblDOBError.Size = new Size(141, 25);
+            lblDOBError.TabIndex = 18;
+            lblDOBError.Text = "DOB is Required";
+            lblDOBError.Visible = false;
+            // 
             // formStudent
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1133, 870);
+            ClientSize = new Size(1133, 987);
+            Controls.Add(lblDOBError);
+            Controls.Add(dtpDOB);
             Controls.Add(dgvStudents);
             Controls.Add(txtImage);
             Controls.Add(btnRemove);
@@ -324,6 +357,7 @@
             Controls.Add(lblFirstNameError);
             Controls.Add(lblFirstName);
             Controls.Add(textBox1);
+            Controls.Add(lblDob);
             Controls.Add(lblCourse);
             Controls.Add(lblGender);
             Controls.Add(lblFee);
@@ -370,5 +404,8 @@
         private TextBox txtImage;
         private OpenFileDialog openFileDialog;
         private DataGridView dgvStudents;
+        private DateTimePicker dtpDOB;
+        private Label lblDob;
+        private Label lblDOBError;
     }
 }
