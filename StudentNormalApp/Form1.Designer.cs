@@ -57,6 +57,9 @@
             dtpDOB = new DateTimePicker();
             lblDob = new Label();
             lblDOBError = new Label();
+            lblHobbies = new Label();
+            lbHobbies = new ListBox();
+            lblHobbiesError = new Label();
             ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
@@ -97,7 +100,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(116, 616);
+            btnSave.Location = new Point(168, 695);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(112, 34);
             btnSave.TabIndex = 3;
@@ -107,7 +110,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(245, 616);
+            btnCancel.Location = new Point(297, 695);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(112, 34);
             btnCancel.TabIndex = 4;
@@ -183,7 +186,7 @@
             // rbMale
             // 
             rbMale.AutoSize = true;
-            rbMale.Location = new Point(170, 248);
+            rbMale.Location = new Point(168, 248);
             rbMale.Name = "rbMale";
             rbMale.Size = new Size(75, 29);
             rbMale.TabIndex = 6;
@@ -194,7 +197,7 @@
             // rbFemale
             // 
             rbFemale.AutoSize = true;
-            rbFemale.Location = new Point(264, 248);
+            rbFemale.Location = new Point(262, 248);
             rbFemale.Name = "rbFemale";
             rbFemale.Size = new Size(93, 29);
             rbFemale.TabIndex = 7;
@@ -216,7 +219,7 @@
             // cmbCourse
             // 
             cmbCourse.FormattingEnabled = true;
-            cmbCourse.Location = new Point(170, 309);
+            cmbCourse.Location = new Point(170, 317);
             cmbCourse.Name = "cmbCourse";
             cmbCourse.Size = new Size(150, 33);
             cmbCourse.TabIndex = 8;
@@ -225,7 +228,7 @@
             // lblCourseError
             // 
             lblCourseError.AutoSize = true;
-            lblCourseError.Location = new Point(349, 312);
+            lblCourseError.Location = new Point(349, 317);
             lblCourseError.Name = "lblCourseError";
             lblCourseError.Size = new Size(159, 25);
             lblCourseError.TabIndex = 9;
@@ -236,7 +239,7 @@
             // chkAgree
             // 
             chkAgree.AutoSize = true;
-            chkAgree.Location = new Point(161, 548);
+            chkAgree.Location = new Point(170, 629);
             chkAgree.Name = "chkAgree";
             chkAgree.Size = new Size(295, 29);
             chkAgree.TabIndex = 11;
@@ -247,7 +250,7 @@
             // lblAgreeError
             // 
             lblAgreeError.AutoSize = true;
-            lblAgreeError.Location = new Point(489, 552);
+            lblAgreeError.Location = new Point(471, 629);
             lblAgreeError.Name = "lblAgreeError";
             lblAgreeError.Size = new Size(304, 25);
             lblAgreeError.TabIndex = 9;
@@ -299,7 +302,7 @@
             dgvStudents.AllowUserToDeleteRows = false;
             dgvStudents.AllowUserToOrderColumns = true;
             dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStudents.Location = new Point(44, 688);
+            dgvStudents.Location = new Point(42, 766);
             dgvStudents.Name = "dgvStudents";
             dgvStudents.ReadOnly = true;
             dgvStudents.RowHeadersWidth = 62;
@@ -308,7 +311,7 @@
             // 
             // dtpDOB
             // 
-            dtpDOB.Location = new Point(150, 398);
+            dtpDOB.Location = new Point(170, 398);
             dtpDOB.Name = "dtpDOB";
             dtpDOB.Size = new Size(261, 31);
             dtpDOB.TabIndex = 17;
@@ -327,18 +330,48 @@
             // lblDOBError
             // 
             lblDOBError.AutoSize = true;
-            lblDOBError.Location = new Point(435, 398);
+            lblDOBError.Location = new Point(450, 398);
             lblDOBError.Name = "lblDOBError";
             lblDOBError.Size = new Size(141, 25);
             lblDOBError.TabIndex = 18;
             lblDOBError.Text = "DOB is Required";
             lblDOBError.Visible = false;
             // 
+            // lblHobbies
+            // 
+            lblHobbies.AutoSize = true;
+            lblHobbies.Location = new Point(40, 483);
+            lblHobbies.Name = "lblHobbies";
+            lblHobbies.Size = new Size(83, 25);
+            lblHobbies.TabIndex = 19;
+            lblHobbies.Text = "Hobbies:";
+            // 
+            // lbHobbies
+            // 
+            lbHobbies.FormattingEnabled = true;
+            lbHobbies.Location = new Point(170, 483);
+            lbHobbies.Name = "lbHobbies";
+            lbHobbies.SelectionMode = SelectionMode.MultiSimple;
+            lbHobbies.Size = new Size(180, 129);
+            lbHobbies.TabIndex = 20;
+            // 
+            // lblHobbiesError
+            // 
+            lblHobbiesError.AutoSize = true;
+            lblHobbiesError.Location = new Point(402, 526);
+            lblHobbiesError.Name = "lblHobbiesError";
+            lblHobbiesError.Size = new Size(218, 25);
+            lblHobbiesError.TabIndex = 21;
+            lblHobbiesError.Text = "Hobbies must be selected";
+            // 
             // formStudent
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1133, 987);
+            ClientSize = new Size(1122, 1145);
+            Controls.Add(lblHobbiesError);
+            Controls.Add(lbHobbies);
+            Controls.Add(lblHobbies);
             Controls.Add(lblDOBError);
             Controls.Add(dtpDOB);
             Controls.Add(dgvStudents);
@@ -407,5 +440,8 @@
         private DateTimePicker dtpDOB;
         private Label lblDob;
         private Label lblDOBError;
+        private Label lblHobbies;
+        private ListBox lbHobbies;
+        private Label lblHobbiesError;
     }
 }

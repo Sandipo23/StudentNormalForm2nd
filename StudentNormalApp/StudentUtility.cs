@@ -8,7 +8,7 @@ namespace StudentNormalApp
     {
         public static List<StudentRead> ConvertToStudentRead(List<Student> students)
         {
-            var studentReads = new List<StudentRead>();
+            var studentReads = new List<StudentRead>(); 
             foreach (Student student in students)
             {
                 studentReads.Add(new StudentRead

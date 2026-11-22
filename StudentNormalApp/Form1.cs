@@ -12,7 +12,15 @@ namespace StudentNormalApp
             LoadCourse();
 
             LoadStudentsGrid();
+            LoadHobbies();
         }
+
+        private void LoadHobbies()
+        {
+            string[] hobbies = _studentService.GetAllHobbies();
+            lbHobbies.Items.AddRange(hobbies);
+        }
+
         private void LoadStudentsGrid()
         {
             dgvStudents.AutoGenerateColumns = false;
@@ -113,6 +121,9 @@ namespace StudentNormalApp
             dtpDOB.Format = DateTimePickerFormat.Custom;
             dtpDOB.CustomFormat = " ";// Set the custom format to an empty string to hide the date initially
             lblDOBError.ForeColor = Color.Red;
+            lbHobbies.SelectionMode = SelectionMode.MultiSimple;
+            lblHobbiesError.ForeColor = Color.Red;
+            lblHobbiesError.Visible = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -157,6 +168,7 @@ namespace StudentNormalApp
             bool agree = chkAgree.Checked;
             string ImagePath = txtImage.Text.Trim();
             string dob = dtpDOB.Text.Trim();
+            string[] hobbies = lbHobbies.SelectedItems.Cast<string>().ToArray();
 
 
 
@@ -202,11 +214,24 @@ namespace StudentNormalApp
             {
                 lblDOBError.Visible = false;
             }
+
+            if (hobbies.Length <= 0)
+            {
+                lblHobbiesError.Visible = true;
+            }
+            else
+            {
+                lblHobbiesError.Visible = false;
+            }
+
+
+
+
             string imagePath = String.IsNullOrEmpty(txtImage.Text) ? null : Path.Combine(_studentService._folderLocation, txtImage.Text); // this is ternary operator which is used to check if the
                                                                                                                                           // txtImage.Text is null or empty then it will assign null to
                                                                                                                                           // imagePath otherwise it will assign the path of the image to imagePath.
 
-            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree && !String.IsNullOrEmpty(dob)) // Check if all required fields are filled
+            if (!String.IsNullOrEmpty(firstName.Trim()) && !String.IsNullOrEmpty(lastName.Trim()) && cmbCourse.SelectedIndex > 0 && agree && !String.IsNullOrEmpty(dob) && hobbies.Length > 0) // Check if all required fields are filled
             {
                 StudentService studentService = new StudentService(); // Create an instance of StudentService
                 Student student = new Student     // Create a new Student object, where the properties are set based on the form inputs.
@@ -217,7 +242,8 @@ namespace StudentNormalApp
                     Agree = agree,
                     Course = course,
                     DOB = dtpDOB.Value,
-                    Profile = imagePath
+                    Profile = imagePath,
+                    Hobbies = hobbies // Assign the selected hobbies to the Hobbies property
                 };
 
                 _studentService.Save(student);
@@ -248,6 +274,7 @@ namespace StudentNormalApp
             textBox1.Focus();
             rbMale.Checked = true;
             cmbCourse.SelectedIndex = 0;
+            lbHobbies.ClearSelected();
             chkAgree.Checked = false;
             RemoveImage();
             _uploadedFile = "";

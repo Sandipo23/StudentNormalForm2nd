@@ -38,6 +38,12 @@ namespace StudentNormalApp
             return courses;
         }
 
+        public string[] GetAllHobbies()
+        {
+            string[] hobbies = { "Music", "Dance", "Hiking", "Programming", "Swimming" };
+            return hobbies;
+        }
+
         public void Save(Student student) // this method is used to save the data of student into database or file.
         {
             //string json = JsonConvert.SerializeObject(student); // this line is used to serialize the Student object into json format.
