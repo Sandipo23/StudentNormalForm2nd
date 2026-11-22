@@ -375,11 +375,16 @@ namespace StudentNormalApp
 
         private void lbHobbies_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            lbHobbies.ClearSelected();
+            lbHobbies.ClearSelected(); // Clear the selection to prevent highlighting of items in the ListBox
             if (lbHobbies.CheckedItems.Count > 0)
             {
                 lblHobbiesError.Visible = false;
             }
+        }
+
+        private void menuLogout_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
