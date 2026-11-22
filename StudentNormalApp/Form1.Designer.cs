@@ -58,8 +58,8 @@
             lblDob = new Label();
             lblDOBError = new Label();
             lblHobbies = new Label();
-            lbHobbies = new ListBox();
             lblHobbiesError = new Label();
+            lbHobbies = new CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvStudents).BeginInit();
             SuspendLayout();
@@ -346,15 +346,6 @@
             lblHobbies.TabIndex = 19;
             lblHobbies.Text = "Hobbies:";
             // 
-            // lbHobbies
-            // 
-            lbHobbies.FormattingEnabled = true;
-            lbHobbies.Location = new Point(170, 483);
-            lbHobbies.Name = "lbHobbies";
-            lbHobbies.SelectionMode = SelectionMode.MultiSimple;
-            lbHobbies.Size = new Size(180, 129);
-            lbHobbies.TabIndex = 20;
-            // 
             // lblHobbiesError
             // 
             lblHobbiesError.AutoSize = true;
@@ -364,13 +355,22 @@
             lblHobbiesError.TabIndex = 21;
             lblHobbiesError.Text = "Hobbies must be selected";
             // 
+            // lbHobbies
+            // 
+            lbHobbies.FormattingEnabled = true;
+            lbHobbies.Location = new Point(175, 457);
+            lbHobbies.Name = "lbHobbies";
+            lbHobbies.Size = new Size(180, 144);
+            lbHobbies.TabIndex = 22;
+            lbHobbies.SelectedIndexChanged += lbHobbies_SelectedIndexChanged_1;
+            // 
             // formStudent
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1122, 1145);
-            Controls.Add(lblHobbiesError);
             Controls.Add(lbHobbies);
+            Controls.Add(lblHobbiesError);
             Controls.Add(lblHobbies);
             Controls.Add(lblDOBError);
             Controls.Add(dtpDOB);
@@ -441,7 +441,7 @@
         private Label lblDob;
         private Label lblDOBError;
         private Label lblHobbies;
-        private ListBox lbHobbies;
         private Label lblHobbiesError;
+        private CheckedListBox lbHobbies;
     }
 }

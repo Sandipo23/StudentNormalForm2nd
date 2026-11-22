@@ -121,9 +121,11 @@ namespace StudentNormalApp
             dtpDOB.Format = DateTimePickerFormat.Custom;
             dtpDOB.CustomFormat = " ";// Set the custom format to an empty string to hide the date initially
             lblDOBError.ForeColor = Color.Red;
-            lbHobbies.SelectionMode = SelectionMode.MultiSimple;
+            // this code is for listbox selection mode to select multiple hobbies from the listbox.
+            // lbHobbies.SelectionMode = SelectionMode.MultiSimple;
             lblHobbiesError.ForeColor = Color.Red;
             lblHobbiesError.Visible = false;
+            lbHobbies.CheckOnClick = true;  // this code is used to check the checkbox of the listbox when the user clicks on the item of the listbox.
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -168,7 +170,7 @@ namespace StudentNormalApp
             bool agree = chkAgree.Checked;
             string ImagePath = txtImage.Text.Trim();
             string dob = dtpDOB.Text.Trim();
-            string[] hobbies = lbHobbies.SelectedItems.Cast<string>().ToArray();
+            string[] hobbies = lbHobbies.CheckedItems.Cast<string>().ToArray();
 
 
 
@@ -281,6 +283,14 @@ namespace StudentNormalApp
             lblFirstNameError.Visible = false;
             lblLastNameError.Visible = false;
             dtpDOB.CustomFormat = " ";
+            for (int i = 0; i < lbHobbies.Items.Count; i++) // this loop is used to uncheck all the checked items of the listbox.
+            {
+                lbHobbies.SetItemChecked(i, false);
+            }
+            lblHobbiesError.Visible = false;
+            lblDOBError.Visible = false;
+            lblAgreeError.Visible = false;
+            lblCourseError.Visible = false;
         }
 
         private void lblLastNameError_Click(object sender, EventArgs e)
@@ -353,6 +363,23 @@ namespace StudentNormalApp
         {
             dtpDOB.CustomFormat = Constants.Format;
             lblDOBError.Visible = false;
+        }
+
+        private void lbHobbies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbHobbies.SelectedItems.Count > 0)
+            {
+                lblHobbiesError.Visible = false;
+            }
+        }
+
+        private void lbHobbies_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            lbHobbies.ClearSelected();
+            if (lbHobbies.CheckedItems.Count > 0)
+            {
+                lblHobbiesError.Visible = false;
+            }
         }
     }
 }

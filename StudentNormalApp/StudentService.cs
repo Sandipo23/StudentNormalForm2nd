@@ -47,8 +47,8 @@ namespace StudentNormalApp
         public void Save(Student student) // this method is used to save the data of student into database or file.
         {
             //string json = JsonConvert.SerializeObject(student); // this line is used to serialize the Student object into json format.
-            var existingStudents = GetExistingStudents();
-            existingStudents.Add(student);
+            var existingStudents = GetExistingStudents(); // this line is used to get all the existing data of student from database or file.
+            existingStudents.Add(student); // this line is used to add the new Student object into the list of existing Student object.
             string json = JsonConvert.SerializeObject(existingStudents);
             string path = Path.Combine(_folderLocation, "student.json");
             File.WriteAllText(path, json);
